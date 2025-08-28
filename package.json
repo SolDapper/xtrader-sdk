@@ -1,7 +1,7 @@
 {
   "name": "xtrader-sdk",
   "version": "0.0.3-dev",
-  "description": "Javascript SDK for the XTrader Protocol",
+  "description": "Javascript SDK for the xTrader Protocol",
   "main": "xtrader-sdk.js",
   "type": "module",
   "scripts": {
