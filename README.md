@@ -108,8 +108,7 @@ const tx = await xtrader.Execute({
     affiliateWallet: "ACgZcmgmAnMDxXxZUo9Zwg2PS6WQLXy63JnnLmJFYxZZ",
     affiliateFee: "0.0009",
     offer: "3pjxfm25WWwD9BcWSqBFamJKYgEpNAnEz8mEmxk9biBQ",
-    buyer: "2jcih7dUFmEQfMUXQQnL2Fkq9zMqj4jwpHqvRVe3gGLL",
-    memo: "Optional Memo Man!"
+    buyer: "2jcih7dUFmEQfMUXQQnL2Fkq9zMqj4jwpHqvRVe3gGLL"
 });
 if(typeof tx.status!="undefined"){console.log(tx);}
 else{
