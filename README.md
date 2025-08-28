@@ -47,21 +47,15 @@ const signer = Keypair.fromSecretKey(new Uint8Array(secret));
 ```javascript
 const tx = await xtrader.Create({
     rpc: rpc,
-    builder: true, // builder false will return ix for tx only
-    blink: false, // blink true will return a base64 formatted object
-    tolerance: 1.2, // cu estimate multiplier for padding if needed
     priority: "Medium", // priority fee level
-    convert: true, // convert true because we're passing decimal values for amounts below
-    affiliateWallet: "ACgZcmgmAnMDxXxZUo9Zwg2PS6WQLXy63JnnLmJFYxZZ",
-    affiliateFee: "0.0009",
-    seller: "7Z3LJB2rxV4LiRBwgwTcufAWxnFTVJpcoCMiCo8Z5Ere", // provider
-    token1Mint: "So11111111111111111111111111111111111111112",
+    convert: true, // true because we're passing decimal values below
+    seller: "7Z3LJB2rxV4LiRBwgwTcufAWxnFTVJpcoCMiCo8Z5Ere",
+    token1Mint: "Xsc9qvGR1efVDFGLrVsmkzv3qi45LTBjeUKSPmx9qEh",
     token1Amount: "0.001",
-    token2Mint: false,
-    token2Amount: false,
-    buyer: false, // buyer false makes this a public listing
-    physical: 0, // 0 = Digital, 1 = Phygital + Shipping, 2 = Phygital Pick-Up, 
-    memo: "", // optional title or reference number
+    buyer: "B8owyFUUu46g8Z4JNZMXmLSc2D725zv6fcXuBewGeTyj",
+    token2Mint: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    token2Amount: "0.007",
+    memo: "", // optional reference also applied to accepted offer tx
 });
 if(tx.tx){
     tx.tx.sign([signer]);
@@ -87,7 +81,7 @@ else{
 ```javascript
 const tx = await xtrader.Cancel({
     rpc: rpc,
-    escrow: "2jcih7dUFmEQfMUXQQnL2Fkq9zMqj4jwpHqvRVe3gGLL" // escrow id (acct)
+    offer: "2jcih7dUFmEQfMUXQQnL2Fkq9zMqj4jwpHqvRVe3gGLL" // offer id
 });
 if(typeof tx.status!="undefined"){console.log(tx);}
 else{
@@ -104,11 +98,8 @@ else{
 ```javascript
 const tx = await xtrader.Execute({
     rpc: rpc,
-    convert: true,
-    affiliateWallet: "ACgZcmgmAnMDxXxZUo9Zwg2PS6WQLXy63JnnLmJFYxZZ",
-    affiliateFee: "0.0009",
     offer: "3pjxfm25WWwD9BcWSqBFamJKYgEpNAnEz8mEmxk9biBQ",
-    buyer: "2jcih7dUFmEQfMUXQQnL2Fkq9zMqj4jwpHqvRVe3gGLL"
+    buyer: "B8owyFUUu46g8Z4JNZMXmLSc2D725zv6fcXuBewGeTyj"
 });
 if(typeof tx.status!="undefined"){console.log(tx);}
 else{
@@ -126,7 +117,7 @@ else{
 const received = await xtrader.Received({
     rpc: rpc,
     display: true,
-    wallet: "2jcih7dUFmEQfMUXQQnL2Fkq9zMqj4jwpHqvRVe3gGLL"
+    wallet: "B8owyFUUu46g8Z4JNZMXmLSc2D725zv6fcXuBewGeTyj"
 });
 console.log(received);
 ```
@@ -139,24 +130,6 @@ const sent = await xtrader.Sent({
     wallet: "7Z3LJB2rxV4LiRBwgwTcufAWxnFTVJpcoCMiCo8Z5Ere"
 });
 console.log(sent);
-```
-
-### Sns
-used internally, accepts the data object passed to the parent method
-returns the object with seller and buyer .sol addresses converted
-```javascript
-_data_ = await xtrader.Sns(connection, _data_);
-```
-
-### Find Offer Id
-returns an offer id or false
-```javascript
-const offer = await xtrader.Find({
-    rpc: rpc,
-    seller: "7Z3LJB2rxV4LiRBwgwTcufAWxnFTVJpcoCMiCo8Z5Ere",
-    mint: "35rxoAdMJXm6cSSEpQ25qgmLFjhShpsEMc3guQjeZva8",
-});
-console.log(offer);
 ```
 
 ### Fetch Offer Details
